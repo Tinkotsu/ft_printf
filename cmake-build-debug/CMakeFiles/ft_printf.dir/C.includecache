@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libft/includes/libft.h
+unistd.h
+-
+stdlib.h
+-
+string.h
+-
+
+/Users/eleonard/ft_printf/includes/ft_printf.h
+stdarg.h
+-
+stdio.h
+-
+libft.h
+/Users/eleonard/ft_printf/includes/libft.h
+
+/Users/eleonard/ft_printf/srcs/test.c
+../includes/ft_printf.h
+/Users/eleonard/ft_printf/includes/ft_printf.h
+limits.h
+-
+
