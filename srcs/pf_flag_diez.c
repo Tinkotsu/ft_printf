@@ -37,7 +37,7 @@ void	pf_flag_diez(t_pf *s)
 		if ((s->p_len && !s->p) || (!s->p_len && *s->value != '0'))
 			s->width_len--;
 	if (!s->flag_minus && !s->flag_zero)
-		ft_putstrn(s->width, s->width_len);
+		write(1, s->width, s->width_len);
 	if (s->ox > 0)
 	{
 		ft_putchar(s->modf[0]);
@@ -45,9 +45,9 @@ void	pf_flag_diez(t_pf *s)
 			ft_putchar(s->modf[1]);
 	}
 	if (s->flag_zero)
-		ft_putstrn(s->width, s->width_len);
+		write(1, s->width, s->width_len);
 	s->sign = print_precision(s);
 	pf_putvalue(s);
 	if (s->flag_minus)
-		ft_putstrn(s->width, s->width_len);
+		write(1, s->width, s->width_len);
 }

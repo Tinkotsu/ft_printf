@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_flag_plus.c                                     :+:      :+:    :+:   */
+/*   ft_recursive_power.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eleonard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 14:19:13 by eleonard          #+#    #+#             */
-/*   Updated: 2019/10/09 14:22:19 by eleonard         ###   ########.fr       */
+/*   Created: 2019/10/22 14:05:46 by eleonard          #+#    #+#             */
+/*   Updated: 2019/10/22 14:05:47 by eleonard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	pf_flags_plus_and_space(t_pf *s)
+size_t			ft_recursive_power(size_t nb, int power)
 {
-	if (s->width_len && !s->flag_minus && !s->flag_zero)
-		write(1, s->width, --s->width_len);
-	ft_putchar(s->flag_plus | s->flag_space);
-	s->len += 1;
-	if (s->width_len && s->flag_zero)
-		write(1, s->width, --s->width_len);
-	s->sign = print_precision(s);
-	pf_putvalue(s);
-	if (s->width_len && s->flag_minus)
-		write(1, s->width, --s->width_len);
+	if (power == 0)
+		return (1);
+	else if (power < 0)
+		return (0);
+	else
+		return (nb * ft_recursive_power(nb, power - 1));
 }

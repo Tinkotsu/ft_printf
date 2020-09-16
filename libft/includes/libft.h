@@ -85,7 +85,6 @@ int				around_sqrt(int nb);
 void			ft_freep(char **str, int max);
 void			ft_lstaddtoend(t_list **alst, t_list *new);
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void			ft_putstrn(const char *str, int len);
 int				abs(int n);
 
 #endif

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_flag_plus.c                                     :+:      :+:    :+:   */
+/*   pf_find_last_symbol_in_string.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eleonard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 14:19:13 by eleonard          #+#    #+#             */
-/*   Updated: 2019/10/09 14:22:19 by eleonard         ###   ########.fr       */
+/*   Created: 2019/10/21 13:26:54 by eleonard          #+#    #+#             */
+/*   Updated: 2019/10/21 13:27:05 by eleonard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	pf_flags_plus_and_space(t_pf *s)
+size_t	find_last(char *str, size_t len, char c)
 {
-	if (s->width_len && !s->flag_minus && !s->flag_zero)
-		write(1, s->width, --s->width_len);
-	ft_putchar(s->flag_plus | s->flag_space);
-	s->len += 1;
-	if (s->width_len && s->flag_zero)
-		write(1, s->width, --s->width_len);
-	s->sign = print_precision(s);
-	pf_putvalue(s);
-	if (s->width_len && s->flag_minus)
-		write(1, s->width, --s->width_len);
+	while (len > 0 && str[len - 1] != c)
+		len--;
+	return (len);
 }

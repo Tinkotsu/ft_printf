@@ -21,6 +21,6 @@ void	pf_flag_zero(t_pf *s)
 		s->len++;
 		s->width_len--;
 	}
-	ft_putstrn(s->width, s->width_len);
+	write(1, s->width, s->width_len);
 	pf_putvalue(s);
 }

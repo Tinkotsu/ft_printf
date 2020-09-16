@@ -6,51 +6,62 @@
 /*   By: ifran <ifran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 18:17:05 by ifran             #+#    #+#             */
-/*   Updated: 2019/10/03 16:16:51 by eleonard         ###   ########.fr       */
+/*   Updated: 2019/10/22 14:58:51 by ifran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	if_flag(t_pf *s)
+static void		check_str(t_pf *s, const char **start)
 {
 	size_t	n;
-	char	*chr;
-	size_t	str_len;
+	int		c_res;
 
-	str_len = ft_strlen(s->str);
-	if (!(chr = ft_strchr(s->str, '%')))
+	while (*(s->str) == '%' || *(s->str) == '{')
 	{
-		s->len += str_len;
-		ft_putstrn(s->str, str_len);
-		return (0);
-	}
-	n = str_len - ft_strlen(chr);
-	ft_putstrn(s->str, n);
-	s->str += n;
-	s->len += n;
-	return (1);
-}
-
-int			ft_printf(const char *str, ...)
-{
-	t_pf	*s;
-	int		res;
-
-	s = initialize(str);
-	va_start(s->ap, str);
-	while (*s->str)
-	{
+		n = ft_strlen(*start) - ft_strlen(s->str);
+		s->len += n;
+		write(1, *start, n);
 		if (*(s->str) == '%' && *(++s->str))
 		{
 			pf_flags(s);
 			re_initialize(s);
 		}
-		if (!(if_flag(s)))
+		else if (*(s->str) == '{')
+		{
+			c_res = pf_colours(s);
+			if (!c_res && ++s->len)
+				write(1, s->str++, 1);
+			s->str += c_res;
+		}
+		*start = s->str;
+	}
+}
+
+int				ft_printf(const char *str, ...)
+{
+	t_pf		*s;
+	int			res;
+	const char	*start;
+	size_t		len;
+
+	s = initialize(str);
+	va_start(s->ap, str);
+	start = s->str;
+	while (1)
+	{
+		check_str(s, &start);
+		if (!(*s->str))
+		{
+			len = ft_strlen(start);
+			write(1, start, len);
+			s->len += len;
 			break ;
+		}
+		++s->str;
 	}
 	va_end(s->ap);
-	res = s->len;
+	res = s->len + s->col;
 	free(s);
 	return (res);
 }

@@ -14,7 +14,7 @@
 
 void		pf_no_flags(t_pf *s)
 {
-	ft_putstrn(s->width, s->width_len);
+	write(1, s->width, s->width_len);
 	s->sign = print_precision(s);
 	pf_putvalue(s);
 }

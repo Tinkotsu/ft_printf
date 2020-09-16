@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_printf.h>
 #include "ft_printf.h"
 
 static void	replace(int *var, t_pf *s)
@@ -32,15 +33,17 @@ static void	process_flags(t_pf *s)
 	if (!ft_strchr("xXoOp", s->t))
 	{
 		if (s->flag_diez)
-			s->was_diez = 35;
+			s->was_diez = 1;
 		replace(&s->flag_diez, s);
 	}
 	else
 		replace_if_not_diez(s);
-	if (s->flag_minus || s->p || !s->width ||
+	if (s->t != 'f' || (s->d.d_parts.exponent == 32767 && s->d.d_parts.mantisa
+			> 9223372036854775807) || s->d.d != s->d.d)
+		if (s->flag_minus || s->p || !s->width ||
 			(!s->p && s->p_len && !s->negative_p))
-		replace(&s->flag_zero, s);
-	if (!ft_strchr("dif", s->t) || *s->value == '-')
+			replace(&s->flag_zero, s);
+	if (!ft_strchr("dif", s->t) || *s->value == '-' || s->d.d != s->d.d)
 	{
 		replace(&s->flag_plus, s);
 		replace(&s->flag_space, s);
@@ -71,7 +74,10 @@ static void	do_flags(t_pf *s)
 	}
 	else
 		pf_no_flags(s);
-	s->len += s->strlen + s->width_len + ft_strlen(s->p) - s->ox;
+	if (s->t != 'f')
+		s->len += s->strlen + s->width_len + ft_strlen(s->p) - s->ox;
+	else
+		s->len += s->strlen + s->width_len - s->ox;
 	s->str += s->ret_value;
 }
 

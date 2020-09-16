@@ -1,27 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   pf_b.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ifran <ifran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/03 13:38:20 by eleonard          #+#    #+#             */
-/*   Updated: 2019/10/22 15:23:15 by ifran            ###   ########.fr       */
+/*   Created: 2019/10/21 17:56:12 by ifran             #+#    #+#             */
+/*   Updated: 2019/10/21 18:02:38 by ifran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_pf	*initialize(const char *str)
+static size_t	count_len(unsigned long long n)
 {
-	t_pf	*s;
+	size_t	len;
 
-	if (!(s = (t_pf*)ft_memalloc(sizeof(t_pf))))
+	len = 1;
+	while (n >= 2)
+	{
+		n /= 2;
+		++len;
+	}
+	return (len);
+}
+
+char			*pf_b(void *var)
+{
+	unsigned long long	n;
+	size_t				len;
+	char				*str;
+
+	n = *(unsigned long long *)var;
+	len = count_len(n);
+	if (!(str = (char *)malloc(len + 1)))
 		case_of_error();
-	s->types = "oXxudiDUOpfcCsnb%";
-	func_arr(s);
-	s->str = str;
-	s->len = 0;
-	re_initialize(s);
-	return (s);
+	str[len] = '\0';
+	while (len > 0)
+	{
+		str[len - 1] = n % 2 + 48;
+		n /= 2;
+		--len;
+	}
+	return (str);
 }

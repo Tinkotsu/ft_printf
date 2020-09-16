@@ -30,8 +30,7 @@ SRC =           ft_atoi.c 			ft_bzero.c 			ft_strchr.c \
 				ft_lstdelone.c		ft_lstdel.c			ft_lstiter.c \
 				ft_lstmap.c			ft_lstaddtoend.c	ft_putchar_fd.c \
 				ft_putstr_fd.c		ft_putendl_fd.c		ft_putnbr_fd.c \
-				ft_sqrt.c			ft_freep.c			ft_putstrn.c \
-				ft_abs.c
+				ft_sqrt.c			ft_freep.c			ft_abs.c
 
 NAME	= libft.a
 
